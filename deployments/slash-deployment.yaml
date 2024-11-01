@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: slash/my-web-deploy
+  labels:
+    app: my-k8s-application
+spec:
+  selector:
+    matchLabels:
+      project: myproj0
+  template:
+    metadata:
+      labels:
+        project: myproj0
+    spec:
+      containers:
+      - name: container-py
+        image: afdesktest/identidock:newest
+        ports:
+        - containerPort: 9090
