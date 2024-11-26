@@ -5,9 +5,8 @@ metadata:
   namespace: rbac-test
 
 subjects:
-- kind: User
+- kind: ServiceAccount
   name: limiteduser
-  apiGroup: rbac.authorization.k8s.io
 
 roleRef:
   kind: Role

@@ -16,6 +16,10 @@ CA=$(grep 'certificate-authority-data' ~/.kube/config | awk '{print $2}')
 URL=$(grep 'server:' ~/.kube/config | awk '{print $2}')
 TOKEN=$(kubectl create token limiteduser --duration=8760h -n rbac-test)
 
+echo "CA: $CA"
+echo "URL: $URL"
+echo "TOKEN: $TOKEN"
+
 cp limited-config-template myconfig
 sed -i '' "s|{{CA}}|$CA|g" myconfig
 sed -i '' "s|{{URL}}|$URL|g" myconfig
