@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-single-pod
+  namespace: work
+spec:
+  containers:
+  - name: my-image-alpine-sleep
+    image: alpine:3.15.1
+    command: [ "/bin/sh", "-c", "--" ]
+    args: [ "while true; do sleep 30; done;"]
