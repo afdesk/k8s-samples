@@ -21,7 +21,7 @@ kubectl create -f limited-binding.yaml
 kubectl create -f limited-role-dev.yaml
 kubectl create -f limited-binding-dev.yaml
 
-CA=$(grep 'certificate-authority-data' ~/.kube/config | awk '{print $2}')
+CA=$(kubectl config view -o jsonpath="{.clusters[?(@.name == 'kind-kind')].cluster.certificate-authority-data}" --flatten)
 URL=$(kubectl config view -o jsonpath="{.clusters[?(@.name=='kind-kind')].cluster.server}")
 TOKEN=$(kubectl create token limiteduser --duration=8760h)
 
@@ -30,7 +30,8 @@ echo "URL: $URL"
 echo "TOKEN: $TOKEN"
 
 cp limited-config-template myconfig
-sed -i '' "s|{{CA}}|$CA|g" myconfig
+
+sed -i '' "s|{{CA}}|'$CA'|g" myconfig
 sed -i '' "s|{{URL}}|$URL|g" myconfig
 sed -i '' "s|{{TOKEN}}|$TOKEN|g" myconfig
 
